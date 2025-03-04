@@ -1,84 +1,97 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { useTheme } from "next-themes"
-import { Moon, Sun } from "lucide-react"
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 export default function SettingsPage() {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [notifications, setNotifications] = useState(true)
-  const [reminderTime, setReminderTime] = useState("18:00")
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [notifications, setNotifications] = useState(true);
+  const [reminderTime, setReminderTime] = useState("18:00");
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
+    setMounted(true);
 
     // Load user data from localStorage
-    const userData = localStorage.getItem("user")
+    const userData = localStorage.getItem("user");
     if (userData) {
-      const user = JSON.parse(userData)
-      setName(user.name || "")
-      setEmail(user.email || "")
+      const user = JSON.parse(userData);
+      setName(user.name || "");
+      setEmail(user.email || "");
     }
 
     // Load settings from localStorage
-    const savedSettings = localStorage.getItem("settings")
+    const savedSettings = localStorage.getItem("settings");
     if (savedSettings) {
-      const settings = JSON.parse(savedSettings)
-      setNotifications(settings.notifications !== undefined ? settings.notifications : true)
-      setReminderTime(settings.reminderTime || "18:00")
+      const settings = JSON.parse(savedSettings);
+      setNotifications(
+        settings.notifications !== undefined ? settings.notifications : true
+      );
+      setReminderTime(settings.reminderTime || "18:00");
     }
-  }, [])
+  }, []);
 
   const saveProfile = () => {
     // Update user data
-    const userData = localStorage.getItem("user")
+    const userData = localStorage.getItem("user");
     if (userData) {
-      const user = JSON.parse(userData)
-      const updatedUser = { ...user, name, email }
-      localStorage.setItem("user", JSON.stringify(updatedUser))
+      const user = JSON.parse(userData);
+      const updatedUser = { ...user, name, email };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
     }
 
-    alert("Profile updated successfully!")
-  }
+    alert("Profile updated successfully!");
+  };
 
   const saveSettings = () => {
     // Save settings to localStorage
     const settings = {
       notifications,
       reminderTime,
-    }
-    localStorage.setItem("settings", JSON.stringify(settings))
+    };
+    localStorage.setItem("settings", JSON.stringify(settings));
 
-    alert("Settings saved successfully!")
-  }
+    alert("Settings saved successfully!");
+  };
 
   const resetProgress = () => {
-    if (confirm("Are you sure you want to reset all your progress? This cannot be undone.")) {
-      localStorage.removeItem("streak")
-      localStorage.removeItem("journalEntries")
-      alert("Progress has been reset.")
-      window.location.reload()
+    if (
+      confirm(
+        "Are you sure you want to reset all your progress? This cannot be undone."
+      )
+    ) {
+      localStorage.removeItem("streak");
+      localStorage.removeItem("journalEntries");
+      alert("Progress has been reset.");
+      window.location.reload();
     }
-  }
+  };
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <div className="container py-6 space-y-6">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center">
+      {/* <div className="flex flex-col items-center justify-center space-y-4 text-center">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">Settings</h1>
           <p className="text-muted-foreground">Manage your account and preferences.</p>
         </div>
-      </div>
+      </div> */}
 
       <div className="grid gap-6">
         <Card>
@@ -89,11 +102,20 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} />
+              <Input
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
           </CardContent>
           <CardFooter>
@@ -110,9 +132,15 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="notifications">Notifications</Label>
-                <p className="text-sm text-muted-foreground">Receive daily reminders and motivational messages</p>
+                <p className="text-sm text-muted-foreground">
+                  Receive daily reminders and motivational messages
+                </p>
               </div>
-              <Switch id="notifications" checked={notifications} onCheckedChange={setNotifications} />
+              <Switch
+                id="notifications"
+                checked={notifications}
+                onCheckedChange={setNotifications}
+              />
             </div>
 
             {notifications && (
@@ -130,7 +158,9 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label>Theme</Label>
-                <p className="text-sm text-muted-foreground">Choose your preferred theme</p>
+                <p className="text-sm text-muted-foreground">
+                  Choose your preferred theme
+                </p>
               </div>
               <div className="flex items-center space-x-2">
                 <Button
@@ -190,7 +220,8 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              Reset your progress data, including streaks and journal entries. This action cannot be undone.
+              Reset your progress data, including streaks and journal entries.
+              This action cannot be undone.
             </p>
             <Button variant="destructive" onClick={resetProgress}>
               Reset All Progress
@@ -199,6 +230,5 @@ export default function SettingsPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
-
