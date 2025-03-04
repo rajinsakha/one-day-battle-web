@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BarChart } from "@/components/ui/chart"
+// import { BarChart } from "@/components/ui/chart"
 import { Award, Calendar } from "lucide-react"
 
 export default function ProgressPage() {
@@ -28,31 +28,31 @@ export default function ProgressPage() {
   }, [])
 
   // Generate mock data for charts
-  const generateChartData = () => {
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    const data = days.map((day) => ({
-      name: day,
-      value: Math.floor(Math.random() * 10) + 1,
-    }))
-    return data
-  }
+  // const generateChartData = () => {
+  //   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  //   const data = days.map((day) => ({
+  //     name: day,
+  //     value: Math.floor(Math.random() * 10) + 1,
+  //   }))
+  //   return data
+  // }
 
-  const moodData = () => {
-    // Count moods from journal entries
-    const moodCounts = { good: 0, neutral: 0, bad: 0 }
+  // const moodData = () => {
+  //   // Count moods from journal entries
+  //   const moodCounts = { good: 0, neutral: 0, bad: 0 }
 
-    Object.values(journalEntries).forEach((entry) => {
-      if (entry.mood === "good") moodCounts.good++
-      else if (entry.mood === "neutral") moodCounts.neutral++
-      else if (entry.mood === "bad") moodCounts.bad++
-    })
+  //   Object.values(journalEntries).forEach((entry) => {
+  //     if (entry.mood === "good") moodCounts.good++
+  //     else if (entry.mood === "neutral") moodCounts.neutral++
+  //     else if (entry.mood === "bad") moodCounts.bad++
+  //   })
 
-    return [
-      { name: "Good", value: moodCounts.good },
-      { name: "Neutral", value: moodCounts.neutral },
-      { name: "Bad", value: moodCounts.bad },
-    ]
-  }
+  //   return [
+  //     { name: "Good", value: moodCounts.good },
+  //     { name: "Neutral", value: moodCounts.neutral },
+  //     { name: "Bad", value: moodCounts.bad },
+  //   ]
+  // }
 
   if (!mounted) return null
 
@@ -144,14 +144,14 @@ export default function ProgressPage() {
               </TabsList>
               <TabsContent value="weekly" className="space-y-4">
                 <div className="h-[300px]">
-                  <BarChart
+                  {/* <BarChart
                     data={generateChartData()}
                     index="name"
                     categories={["value"]}
                     colors={["primary"]}
-                    valueFormatter={(value:any) => `${value} hours`}
+                    valueFormatter={(value) => `${value} hours`}
                     yAxisWidth={48}
-                  />
+                  /> */}
                 </div>
                 <p className="text-sm text-muted-foreground text-center">
                   Weekly progress showing hours dedicated to your goal
@@ -159,14 +159,14 @@ export default function ProgressPage() {
               </TabsContent>
               <TabsContent value="mood" className="space-y-4">
                 <div className="h-[300px]">
-                  <BarChart
+                  {/* <BarChart
                     data={moodData()}
                     index="name"
                     categories={["value"]}
                     colors={["primary"]}
                     valueFormatter={(value) => `${value} entries`}
                     yAxisWidth={48}
-                  />
+                  /> */}
                 </div>
                 <p className="text-sm text-muted-foreground text-center">
                   Distribution of mood entries in your journal
